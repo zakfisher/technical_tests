@@ -18,6 +18,7 @@ The result should:
 - Use CSS3 whenever possible and degrade nicely for browsers that do not support advanced features.
 - Use Sass CSS pre-processor if possible.
 - Use a HTML5 `doctype`.
+- Consider high resolution screens i.e. retina.
 - Take into account:
 	- Accessibility
 	- Performance
