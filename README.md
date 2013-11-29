@@ -2,14 +2,14 @@
 
 ## Instructions
 
-Please build out the mockup in the png attached, it's a listing page to display all Westfield centre deals.
+Please build out the mockup found in *design_assets/mockup.png* directory, it's a listing page to display all Westfield centre deals.
 
 The result should:
 
 - Be responsive, you can decide how the design should best scale for smaller screens.
 - Be centre aligned in the browser viewport. 960px is the maximum width of the design and 320px is the minimum screen width to support.
--	Be the entire contents of the `body` i.e. there is no header/footer.
--	Use dynamic data from our API's (see *API/JavaScript* section below), the deals search however should be completely static as we're only interested in the HTML/CSS for this.
+- Be the entire contents of the `body` i.e. there is no header/footer.
+- Use dynamic data from our API's (see *API/JavaScript* section below), the deals search however should be completely static as we're only interested in the HTML/CSS for this.
 - Work in the following desktop browsers and devices (if you don't have access to any devices then testing in an emulator is fine):
 	- IE9+.
 	- Latest version of all other major browsers.
