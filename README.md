@@ -2,7 +2,7 @@
 
 ## Instructions
 
-Please build out the mockup found in *design_assets/mockup.png* directory, it's a listing page to display all Westfield centre deals.
+Please build out the mockup [found here](https://github.com/westfield/technical_tests/blob/master/design_assets/mockup.png), it's a listing page to display all Westfield centre deals.
 
 The result should:
 
