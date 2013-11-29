@@ -26,6 +26,14 @@ The result should:
 
 ### API/JavaScript
 
+- Use CoffeeScript if you like
+- Use any framework / libs
+- API docs are here http://www.westfield.com.au/api
+- End points of interest:
+  - http://www.westfield.com.au/api/centre/master/states.json?country=au
+  - http://www.westfield.com.au/api/centre/master/centres.json?state=NSW
+  - http://www.westfield.com.au/api/deal/master/deals.json?centre=bondijunction&state=published
+
 ----
 
-Good luck. We look forward to receiving your submission!
+Fork this repo and create a pull-request when you are done. Good luck. We look forward to receiving your pull-request!
