@@ -1,6 +1,12 @@
 (function() {
     var D = this;
 
+    var defaults = {
+        country : 'au',
+        state   : 'NSW',
+        centre  : 'bondijunction'
+    };
+
     /***************
      * Browser
      ***************/
@@ -14,22 +20,29 @@
     /***************
      * Collections
      ***************/
-    var Deals = Backbone.Collection.extend({
-        url: 'http://www.westfield.com.au/api/deal/master/deals'
-    });
-    var States = Backbone.Collection.extend({
-        url: 'http://www.westfield.com.au/api/centre/master/states.json?country=au'
-    });
-    var Centres = Backbone.Collection.extend({
-        url: 'http://www.westfield.com.au/api/centre/master/centres.json?state=NSW'
-    });
-
-    /***************
-     * Models
-     ***************/
-    var Deal = Backbone.Model.extend({
-        urlRoot: 'http://www.westfield.com.au/api/deal/master/deals'
-    });
+    D.collections = new function() {
+        var c = this;
+        c.setCountry = function(country) {
+            c.States = Backbone.Collection.extend({
+                url: 'http://www.westfield.com.au/api/centre/master/states.json?country=' + country
+            });
+        };
+        c.setState = function(state) {
+            c.Centres = Backbone.Collection.extend({
+                url: 'http://www.westfield.com.au/api/centre/master/centres.json?state=' + state
+            });
+        };
+        c.setCentre = function(centre) {
+            c.Deals = Backbone.Collection.extend({
+                url: 'http://www.westfield.com.au/api/deal/master/deals.json?centre=' + centre + '&state=published'
+            });
+        };
+        c.init = function(options) {
+            c.setCountry(options.country);
+            c.setState(options.state);
+            c.setCentre(options.centre);
+        };
+    };
 
     /***************
      * Views
@@ -41,24 +54,17 @@
 //            'click .delete': 'deleteUser'
 //        },
         render: function (options) {
-            if (options.id) { // One Deal
-                var dealModel = new Deal(options);
-                dealModel.fetch({
-                    success: function (deal) {
-                        console.log('loaded model #' + options.id);
-                        console.log(dealModel);
-                    }
-                });
+            if (!options.centre) {
+                options.centre = defaults.centre;
             }
-            else { // All Deals
-                var dealsCollection = new Deals();
-                dealsCollection.fetch({
-                    success: function (deals) {
-                        console.log('loaded all models');
-                        console.log(dealsCollection);
-                    }
-                });
-            }
+            D.collections.setCentre(options.centre);
+            var dealsCollection = new D.collections.Deals();
+            dealsCollection.fetch({
+                success: function (deals) {
+                    console.log('all deals');
+                    console.log(dealsCollection.at(0).attributes.deal_stores[0].centre_id);
+                }
+            });
         }
     });
     D.dealsView = new DealsView();
@@ -69,15 +75,31 @@
     var Router = Backbone.Router.extend({
         routes: {
             "": "deals",
-            ":id": "deals"
+            ":centre": "deals"
         },
         initialize: function(options) {
+            $.extend(defaults, options);
+            D.collections.init(defaults);
+            var statesCollection = new D.collections.States();
+            statesCollection.fetch({
+                success:function(states, response) {
+                    console.log('states');
+                    console.log(states);
+                }
+            });
+            var centresCollection = new D.collections.Centres();
+            centresCollection.fetch({
+                success:function(centres, response) {
+                    console.log('centres');
+                    console.log(centres);
+                }
+            });
             Handlebars.renderTemplate('header', {logo:'logo',title:'Deals'}, '#header');
         }
     });
     D.router = new Router({});
-    D.router.on('route:deals', function(id) {
-        D.dealsView.render({id:id});
+    D.router.on('route:deals', function(centre) {
+        D.dealsView.render({centre:centre});
     });
     Backbone.history.start();
 })();
