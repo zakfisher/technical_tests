@@ -1,0 +1,1 @@
+*{font-family:'Lato', sans-serif}html,body{height:100%}#header{height:150px;width:100%}#header .navbar{background:none;border:none}#header .navbar h1{clear:both;font-weight:100}#content{width:100%}#footer{width:100%}@media (min-width: 992px){.container{max-width:960px}}

@@ -5,46 +5,122 @@
 <meta name="Author" content="Zachary Fisher, Front End Engineer || UX Designer">
 <meta name=viewport content="user-scalable=no,width=device-width" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7, IE=9">
-<title>Zak's Xfinity Web Interview</title>
+<title>Westfield Deals</title>
 <link href="favicon.ico" rel="icon" type="image/x-icon">
-<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet" />
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-<link href="css/x-api.css" rel="stylesheet" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link href="css/wf-deals.css" rel="stylesheet" />
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="nav-container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/comcast">Xfinity Developer APIs</a>
-            <div class="dropdown">
-                <p class="pull-left">Pick API:</p>
-                <div class="display pull-right">
-                    <span>&nbsp;</span>
-                    <i class="icon-caret-down pull-right"></i>
-                </div>
-                <div class="list">
-                    <a>&nbsp;</a>
-                </div>
+<div id="header"></div>
+<div id="content"></div>
+<div id="footer"></div>
+<script id="template-logo" type="text/x-handlebars-template">
+<svg version="1.2" baseProfile="tiny" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="134px" height="54px" viewBox="0 0 134 54" xml:space="preserve">
+    <g>
+        <path fill="#D92C27" d="M36.207,32.415c-0.031-0.173-0.056-0.356-0.08-0.553h0.009l6.78-6.849l5.237-5.306
+            c0,0,1.969-2.099,1.807-4.912c-0.818-5.097-1.484-9.133-1.484-9.133l-13.154,5.438l-0.06,0.03l0.245,0.982
+            c0,0,3.348-1.302,4.464-0.048c0.141,0.153,0.273,0.257,0.469,0.829c0.311,1.019,0.772,3.101,1.604,7.682
+            c0.168,1.005-0.219,1.662-0.42,1.94c-0.029,0.038-0.053,0.059-0.053,0.059l-5.912,6.054c-0.232-1.534-0.163-1.069-0.004,0.004
+            l-0.007,0.008c-1.328-8.748-3.636-22.941-3.636-22.941l-13.227,5.46l0.247,0.997c0,0,3.349-1.31,4.466-0.059
+            c0.141,0.164,0.275,0.266,0.471,0.842c0.306,1.004,0.769,3.086,1.605,7.666c0.208,1.35-0.538,2.087-0.538,2.087l-5.85,5.98
+            c-1.325-8.748-3.624-22.874-3.624-22.874L2.343,11.258l0.243,0.991c0,0,3.345-1.305,4.465-0.044
+            c0.529,0.587,0.876,0.335,5.246,26.799c0,0,0.667,3.596-3.037,6.784l1.009,1.235c0,0,10.557-6.992,9.493-14.497
+            c-0.023-0.201-0.056-0.403-0.091-0.613l6.747-6.802c0.616,3.514,1.376,8.006,2.325,13.794c0,0,0.662,3.588-3.041,6.782l1.021,1.229
+            C26.722,46.915,37.271,39.93,36.207,32.415"/>
+        <path fill="#D92C27" d="M83.353,23.603c-0.06,0.279-0.128,0.559-0.2,0.834c-0.227,0.935-0.435,1.803-0.44,1.803h3.736
+            c0,0,0.228-0.944,0.49-1.949c0.291-1.148,0.615-2.384,0.615-2.391c0.48-1.989-0.788-5.298-3.883-4.746
+            c-1.127,0.208-2.141,0.757-3.129,1.346c-1.444,0.854-2.781,1.959-4.058,3.087l-2.271,7.832l-5.168,0.006
+            c1.098-4.222,1.856-4.679-0.064-7.011l-2.878,1.387c0.389,0.928,0.241,1.508,0.094,2.247c-0.345,1.151-0.968,3.404-0.968,3.404
+            h-2.024l-0.608,1.924l2.087-0.008L61.478,44.49c0.065,0.614,1.424,2.519,3.069,2.534l4.716-2.979l-0.573-1
+            c-2.784,1.839-3.103,0.552-3.084-0.05c0.993-3.852,2.857-11.61,2.857-11.61h4.536c0,0,0.801-0.094,0.605,0.597l-3.541,14.659
+            l3.884-0.034l3.708-15.217l2.58-0.004c0.718,0.094,1.214,0.353,0.988,1.237c0,0-2.868,11.794-2.891,11.867
+            c0.056,0.614,1.419,2.519,3.061,2.534l4.716-2.979l-0.569-0.996c-1.235,0.808-1.98,1.004-2.423,0.931l-0.041-0.017l-0.056-0.013
+            l-0.056-0.018h-0.023c-0.416-0.176-0.495-0.634-0.484-0.938c0.996-3.852,3.325-13.57,3.325-13.57h-7.681l1.904-7.348
+            c0.435-1.119,1.815-2.1,2.871-1.931c1.149,0.184,0.877,1.693,0.528,3.233C83.389,23.456,83.373,23.542,83.353,23.603"/>
+        <path fill="#D92C27" d="M48.053,43.329h0.009H48.053z"/>
+        <path fill="#D92C27" d="M8.956,8.89"/>
+        <path fill="#D92C27" d="M62.327,33.055L62.327,33.055c-0.088-0.19-0.177-0.385-0.273-0.56c-0.884-1.832-1.993-2.671-3.129-2.998
+            c-0.048-0.022-0.111-0.03-0.163-0.05c-0.257-0.061-0.564-0.096-0.885-0.096c-2.199,0.016-5.579,1.495-6.436,3.734
+            c-0.449,1.164-1.077,3.229-0.917,4.398c0.02,0.136,0.048,0.27,0.093,0.382c0.147,0.361,0.391,0.64,0.708,0.88
+            c0.809,0.633,2.132,0.909,3.324,1.293l0.053,0.023c0.102,0.031,0.215,0.069,0.318,0.102c0.484,0.203,0.863,0.469,0.945,0.924
+            c0.128,0.737-0.256,2.086-0.764,2.92c-1.204,2.029-2.76,0.801-4.228-2.422l-0.033,0.012h-0.004
+            c-0.103,0.058-2.783,1.666-2.875,1.728c0.083,0.2,0.18,0.384,0.276,0.56c0.876,1.836,1.981,2.674,3.128,3.005
+            c0.056,0.017,0.113,0.034,0.167,0.047c0.257,0.069,0.561,0.1,0.882,0.092c2.189-0.011,5.58-1.495,6.436-3.732
+            c0.446-1.169,1.068-3.225,0.913-4.394c-0.017-0.147-0.052-0.272-0.097-0.388c-0.144-0.355-0.387-0.638-0.696-0.87
+            c-0.816-0.644-2.139-0.919-3.333-1.307l-0.05-0.01c-0.108-0.04-0.208-0.077-0.309-0.113c-0.493-0.203-0.875-0.466-0.954-0.92
+            c-0.128-0.74,0.258-2.08,0.762-2.915c1.213-2.033,2.772-0.799,4.241,2.413l0.017-0.01h0.011
+            C59.555,34.733,62.235,33.117,62.327,33.055"/>
+        <path fill="#D92C27" d="M118.539,33.645l-2.129,7.827c-0.117,0.467-0.355,0.66-0.518,0.845c-2.57,2.099-5.581,2.938-4.501-1.537
+            c0,0,1.831-7.281,2.153-7.78C115.17,30.849,118.771,30.563,118.539,33.645 M130.597,17.408c-2.752-0.066-5.785,0.191-7.813,2.369
+            c-1.161,2.224-3.437,10.518-3.437,10.518c-0.696-1.003-6.263-2.288-9.46,2.044l-0.024,0.042
+            c-0.417,0.853-2.774,10.312-2.799,10.326c-0.769,0.562-2.884,1.358-3.194,1.327c-0.473-0.213-0.727-0.583-0.647-1.117
+            c2.084-7.216,3.523-14.6,5.868-21.71c0.874-1.805,2.809-2.601,4.661-2.821l-0.076-0.977c-2.74-0.066-5.773,0.191-7.805,2.369
+            c-1.52,2.537-6.584,23.712-6.584,23.712c-0.251,1.755,1.587,3.673,2.832,3.535c1.816-0.793,3.44-1.893,5.133-2.914
+            c0.56,0.765,1.459,1.771,2.21,2.309c2.186,1.594,6.486-1.243,6.51-1.203c0.609,0.957,1.551,1.994,3.177,1.686
+            c1.243-0.41,6.088-3.619,6.088-3.619l-0.647-1.073c0,0-2.564,1.655-4.036,1.817c0,0-0.873-0.064-0.609-1.093l6.053-21.727
+            c0.882-1.805,2.82-2.601,4.66-2.821L130.597,17.408z"/>
+        <path fill="#D92C27" d="M96.487,34.918c-0.839,2.457-3.848,2.139-4.319,2.058v0.004c-0.08-0.039-0.05-0.185-0.05-0.185l0.757-2.944
+            c0.465-1.678,2.497-2.662,3.341-2.434C97.608,31.978,96.487,34.918,96.487,34.918 M99.688,29.984
+            c-1.267-1.26-4.021-0.541-5.772-0.104c-1.853,0.598-3.906,1.246-4.785,3.396c-0.704,2.483-1.888,7.084-2.543,10.112
+            c-0.028,0.82,2.596,3.479,4.532,3.636c0.576,0.219,6.58-3.728,6.58-3.728l-0.641-1.089c0,0-2.436,1.574-3.919,1.771
+            c-0.068,0.006-0.144-0.007-0.144-0.007c-0.863-0.129-1.934-0.79-2.232-1.557c-0.109-0.246,0.743-3.327,0.743-3.327
+            S97.276,39.36,99,37.141C100.244,35.087,101.118,31.607,99.688,29.984"/>
+        <path fill="#D92C27" d="M45.9,34.918c-0.843,2.457-3.844,2.139-4.316,2.058v0.004c-0.085-0.039-0.049-0.185-0.049-0.185l0.76-2.944
+            c0.469-1.678,2.49-2.662,3.337-2.434C47.028,31.978,45.9,34.918,45.9,34.918 M49.105,29.984c-1.272-1.26-4.026-0.541-5.781-0.104
+            c-1.847,0.598-3.904,1.246-4.781,3.396c-0.708,2.483-1.884,7.084-2.532,10.112c-0.035,0.82,2.592,3.479,4.525,3.636
+            c0.58,0.219,6.58-3.728,6.58-3.728l-0.639-1.089c0,0-2.445,1.574-3.924,1.771c-0.061,0.006-0.14-0.007-0.14-0.007
+            c-0.864-0.129-1.925-0.79-2.225-1.557c-0.121-0.246,0.731-3.327,0.731-3.327s5.781,0.272,7.498-1.947
+            C49.66,35.087,50.534,31.607,49.105,29.984"/>
+    </g>
+</svg>
+</script>
+<script id="template-header" type="text/x-handlebars-template">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">{{renderInnerTemplate logo}}</a>
+                <h1>{{title}}</h1>
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">-->
+                <!--<span class="sr-only">Toggle navigation</span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--</button>-->
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li class="active"><a href="#">Home</a></li>-->
+                    <!--<li><a href="#about">About</a></li>-->
+                    <!--<li><a href="#contact">Contact</a></li>-->
+                    <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                    <!--<li><a href="#">Action</a></li>-->
+                    <!--<li><a href="#">Another action</a></li>-->
+                    <!--<li><a href="#">Something else here</a></li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li class="dropdown-header">Nav header</li>-->
+                    <!--<li><a href="#">Separated link</a></li>-->
+                    <!--<li><a href="#">One more separated link</a></li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                </ul>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="content">
-        <h1 class="pull-right">For Examples, Pick an API.</h1>
-    </div>
-</div>
-<div class="footer">
-    <p>&copy; Comcast LLC. 2013</p>
-</div>
+</script>
+<script id="template-tab-nav" type="text/x-handlebars-template">
+
+</script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" type="text/javascript"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
 <script src="js/handlebars.js"></script>
 <script src="js/helpers.js"></script>
-<script src="js/x-api.js"></script>
-<script id="template-content" type="text/x-handlebars-template">
-    <h2>{{header}}</h2>
-    <p>{{body}}</p>
-    <pre>{{code}}</pre>
-</script>
+<script src="js/wf-deals.js"></script>
 </body>
 </html>
