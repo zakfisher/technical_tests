@@ -18,7 +18,7 @@
 <div id="tab-nav"></div>
 <div id="list"></div>
 <script id="template-loading" type="text/x-handlebars-template">
-    <div class="container"><img src="images/loading.gif" /></div>
+    <div class="container"><img id="loading" src="images/loading.gif" /></div>
 </script>
 <script id="template-logo" type="text/x-handlebars-template">
 <svg version="1.2" baseProfile="tiny" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="134px" height="54px" viewBox="0 0 134 54" xml:space="preserve">
@@ -92,12 +92,12 @@
 </script>
 <script id="template-tab-nav" type="text/x-handlebars-template">
     <div class="container">
-        <ul class="nav nav-tabs col-xs-8">
+        <ul class="nav nav-tabs col-xs-12 col-md-8">
             {{#each states}}
-            <li><a href="#{{attributes.country_code}}/{{attributes.abbreviation}}">{{attributes.abbreviation}}</a></li>
+            <li><a href="#!/{{attributes.country_code}}/{{attributes.abbreviation}}">{{attributes.abbreviation}}</a></li>
             {{/each}}
         </ul>
-        <form class="form-inline col-xs-4" role="form">
+        <form class="form-inline col-xs-12 col-md-4" role="form">
             <div class="form-group pull-right">
                 <i class="icon-search"></i>
                 <input type="search" class="form-control" placeholder="Search for deals..." value="{{value}}">
@@ -109,8 +109,8 @@
     <div class="container">
         <ul>
             {{#each centres}}
-            <li class="centres" data-centre="{{attributes.code}}">
-                <a href="#{{location.country}}/{{location.state}}/{{attributes.code}}"><i class="icon-plus"></i>{{attributes.name}}</a>
+            <li class="centres{{#if active}} active{{/if}}" data-state="{{location.state}}" data-centre="{{attributes.code}}">
+                <a><i class="icon-{{#if active}}minus{{else}}plus{{/if}}"></i>{{attributes.name}}</a>
             </li>
             {{/each}}
         </ul>
@@ -120,15 +120,26 @@
     <li class="deals" data-centre="{{location.centre}}">
         <ul>
             {{#each deals}}
-            <li>{{attributes.title}}</li>
+            <li>
+                <h3>{{attributes.title}}</h3>
+                <p>Deal from {{attributes.from}} to {{attributes.to}}, from {{attributes.retailer}}</p>
+                <a href="javascript:void(0);">View more <i class="icon-caret-right"></i></a>
+            </li>
             {{/each}}
         </ul>
+    </li>
+</script>
+<script id="template-no-deals" type="text/x-handlebars-template">
+    <li class="deals no-deals" data-centre="{{location.centre}}">
+        <h3>No deals at this centre</h3>
+        <p>Check nearby centres</p>
     </li>
 </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" type="text/javascript"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.min.js"></script>
 <script src="js/handlebars.js"></script>
 <script src="js/helpers.js"></script>
 <script src="js/wf-deals.js"></script>
