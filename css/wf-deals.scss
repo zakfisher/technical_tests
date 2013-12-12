@@ -33,19 +33,39 @@ body {
 
 }
 
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+   @include box-shadow(0 0 8px $red);
+   border-color: $red;
+   outline: 0 none;
+}
+
 ul {
    list-style-type: none;
    margin: 0;
    padding: 0;
 }
 
-#loading {
-   margin: 0 auto;
-   width: 24px;
+.loading {
+   margin: 10px auto;
    position: relative;
    left: 50%;
    margin-left: -12px;
-   top: 100px;
+   width: 24px;
 }
 
 #header {
@@ -74,6 +94,9 @@ ul {
 }
 
 #tab-nav {
+   .loading {
+      top: 100px;
+   }
    .nav-tabs {
       border: none;
    }
@@ -121,7 +144,9 @@ ul {
             font-weight: 400;
             padding-left: 30px;
             height: 37px;
-            @include box-shadow(none);
+            &:not(:focus) {
+               @include box-shadow(none);
+            }
          }
       }
    }
@@ -139,10 +164,11 @@ ul {
          &.centres {
             height: 45px;
             margin-top: 1px;
+            cursor: pointer;
             a {
                background: black;
                color: white;
-               cursor: default;
+               cursor: pointer;
                display: block;
                font-family: 'Lato', sans-serif;
                font-size: 22px;
@@ -156,6 +182,7 @@ ul {
                text-transform: uppercase;
                width: 100%;
                i {
+                  cursor: pointer;
                   font-size: 16px;
                   margin: 0 10px 0 0;
                   position: relative;
@@ -177,7 +204,22 @@ ul {
                li {
                   min-height: 80px;
                   position: relative;
-                  padding-left: 20px;
+                  padding-left: 140px;
+                  div.img-wrap {
+                     background: white;
+                     width: 120px;
+                     position: absolute;
+                     height: 100%;
+                     left: 0;
+                     img {
+                        max-width: 100%;
+                        max-height: 100%;
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        margin: auto;
+                     }
+                  }
                   h3 {
                      font-family: 'Arial', 'Helevetica', 'sans-serif';
                      font-size: 22px;
@@ -249,12 +291,97 @@ ul {
 }
 
 // Only Extra Small
-@media (max-width: 668px) {
+@media (max-width: 768px) {
+   #header {
+      height: 125px;
+      .navbar-header {
+         padding-left: 15px !important;
+      }
+   }
+   #tab-nav {
+      .loading {
+         top: 10px;
+      }
+      ul {
+         margin: 0;
+         padding: 0 15px;
+         li {
+            width: 100%;
+            a {
+               @include border-radius(0);
+//               border-left: none !important;
+//               border-right: none !important;
+               margin: 0;
+            }
+            &:first-child a {
+               @include border-radius(4px 4px 0 0);
+            }
+            &:last-child a {
+               @include border-radius(0 0 4px 4px);
+               border-bottom: 1px solid #ddd;
+            }
+         }
+      }
+      form {
+         padding: 15px;
+         margin: 0;
+         .form-group {
+            margin: 0;
+         }
+         input[type=search] {
 
+         }
+      }
+   }
+   #list {
+      .container {
+         margin: 0 !important;
+         padding: 0 15px;
+      }
+      li.centres {
+         a {
+            font-size: 16px !important;
+            padding-top: 12px !important;
+            i {
+               top: 0 !important;
+            }
+         }
+      }
+      li.deals {
+         ul {
+            li {
+               padding-left: 70px !important;
+               .img-wrap {
+                  width: 60px !important;
+               }
+               h3 {
+                  font-size: 16px !important;
+                  line-height: 20px !important;
+                  padding-top: 10px !important;
+               }
+               p {
+                  padding: 0 !important;
+               }
+               a {
+                  position: relative !important;
+                  top: 0 !important;
+                  left: 0 !important;
+                  padding: 10px 0;
+                  line-height: 30px;
+               }
+            }
+         }
+      }
+      li.no-deals {
+         h3 {
+            font-size: 16px !important;
+         }
+      }
+   }
 }
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: 668px) {
+@media (min-width: 768px) {
 
 }
 
@@ -266,4 +393,87 @@ ul {
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 
+}
+
+// Browser Fixes
+[data-browser="Chrome"] {
+   &[data-platform="Windows"],
+   &[data-platform="Android"] {
+      #header {
+         h1 {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 0 !important;
+            font-weight: 300 !important;
+         }
+      }
+      #list {
+         li.centres {
+            a {
+               font-weight: 300 !important;
+            }
+         }
+      }
+   }
+}
+[data-browser="Safari"] {
+   &[data-platform="Windows"] {
+      #header {
+         h1 {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 0 !important;
+         }
+      }
+   }
+   &[data-platform="Windows"],
+   &[data-platform="iPhone"] {
+      #header {
+         h1 {
+            font-weight: 300 !important;
+         }
+      }
+      #list {
+         li.centres {
+            a {
+               font-weight: 300 !important;
+            }
+         }
+      }
+   }
+}
+[data-browser="Firefox"] {
+   &[data-platform="Windows"] {
+      #header {
+         h1 {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 0 !important;
+            font-weight: 300 !important;
+         }
+      }
+      #list {
+         li.centres {
+            a {
+               font-weight: 300 !important;
+            }
+         }
+      }
+   }
+}
+[data-browser="MSIE"] {
+   &[data-version="9.0"],
+   &[data-version="10.0"] {
+      #header {
+         h1 {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 0 !important;
+            font-weight: 300 !important;
+         }
+      }
+      #list {
+         li.centres {
+            a {
+               font-weight: 300 !important;
+            }
+         }
+      }
+   }
 }

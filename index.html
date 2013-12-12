@@ -18,7 +18,7 @@
 <div id="tab-nav"></div>
 <div id="list"></div>
 <script id="template-loading" type="text/x-handlebars-template">
-    <div class="container"><img id="loading" src="images/loading.gif" /></div>
+    <div class="container"><img class="loading" src="images/loading.gif" /></div>
 </script>
 <script id="template-logo" type="text/x-handlebars-template">
 <svg version="1.2" baseProfile="tiny" id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="134px" height="54px" viewBox="0 0 134 54" xml:space="preserve">
@@ -92,12 +92,12 @@
 </script>
 <script id="template-tab-nav" type="text/x-handlebars-template">
     <div class="container">
-        <ul class="nav nav-tabs col-xs-12 col-md-8">
+        <ul class="nav nav-tabs col-xs-12 col-sm-8">
             {{#each states}}
             <li><a href="#!/{{attributes.country_code}}/{{attributes.abbreviation}}">{{attributes.abbreviation}}</a></li>
             {{/each}}
         </ul>
-        <form class="form-inline col-xs-12 col-md-4" role="form">
+        <form class="form-inline col-xs-12 col-sm-4 clearfix" role="form">
             <div class="form-group pull-right">
                 <i class="icon-search"></i>
                 <input type="search" class="form-control" placeholder="Search for deals..." value="{{value}}">
@@ -121,8 +121,11 @@
         <ul>
             {{#each deals}}
             <li>
+                <div class="img-wrap">
+                    <img src="{{attributes.logoHref}}" />
+                </div>
                 <h3>{{attributes.title}}</h3>
-                <p>Deal from {{attributes.from}} to {{attributes.to}}, from {{attributes.retailer}}</p>
+                <p>Deal from {{attributes.from}} to {{attributes.to}}, from {{attributes.store}}</p>
                 <a href="javascript:void(0);">View more <i class="icon-caret-right"></i></a>
             </li>
             {{/each}}
